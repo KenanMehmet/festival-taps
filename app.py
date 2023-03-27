@@ -26,7 +26,7 @@ def FillUpBottle(water_bottles, taps):
     To find how long to it takes to fill a water bottle we will take the bottle amount and divide it by the tap_fill_rate 
     This is because the bottles and tap rate is measured in 100ml
     """
-    taps = [0 for tap in range(0, taps)]
+    taps = [0] * taps
     occupied_taps = taps.copy()
     water_bottles = [x / 100 for x in water_bottles]
     for bottle in water_bottles:
@@ -34,12 +34,13 @@ def FillUpBottle(water_bottles, taps):
             if occupied_taps[i] == 0:
                 occupied_taps[i] += bottle
                 break
-            if 0 not in occupied_taps:
-                minimum_time = min(occupied_taps)
-                for j in range(0, len(taps)):
-                    taps[j] += minimum_time
-                    occupied_taps[j] -= minimum_time
-                    #print(taps, occupied_taps)
+        if 0 not in occupied_taps:
+            print(taps, occupied_taps)
+            minimum_time = min(occupied_taps)
+            for j in range(0, len(taps)):
+                taps[j] += minimum_time
+                occupied_taps[j] -= minimum_time
+                print(taps, occupied_taps)
     taps = [taps[i] + occupied_taps[i] for i in range(0, len(taps))]
     return sum(taps)
 
