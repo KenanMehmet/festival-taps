@@ -1,4 +1,4 @@
-from test_data import testing_data, testing_error_data
+from test_data import testing_data, testing_error_data, differet_flow_rates_testing_data
 
 """
 Received email on Monday 27th 2:15PM
@@ -108,6 +108,24 @@ def WalkToTap(water_bottles, taps):
         taps[taps.index(min(taps))] += (bottle + 3)
     return max(taps)
 
+"""
+Step 4
+Different Flow of taps:
+
+We have initally assumed that the taps will all be running at the same speed, now we will assume that each
+tap will have a different ml per second, e.g tap 1 will be at 100ml per second and tap 2 will be at 200 ml per second.
+
+Changes that we will be making to our test data is converting the integer to representing taps into a list which 
+will hold the speed of each tap in ml
+"""
+
+def DifferentTapSpeedFillUp(water_bottles, taps):
+    taps = [0] * taps
+    water_bottles = [bottle / 100 for bottle in water_bottles]
+    for bottle in water_bottles:
+        taps[taps.index(min(taps))] += (bottle + 3)
+    return max(taps)
+
 if __name__ == "__main__":
 
     """
@@ -128,3 +146,6 @@ if __name__ == "__main__":
     """
     for data in testing_data:
         print(WalkToTap(data[0], data[1]))
+
+    for data in differet_flow_rates_testing_data:
+        print(DifferentTapSpeedFillUp(data[0], data[1]))
