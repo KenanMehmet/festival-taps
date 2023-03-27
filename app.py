@@ -47,14 +47,8 @@ def FillUpBottle(water_bottles, taps):
     print(occupied_taps)
     return max([taps[i] + occupied_taps[i] for i in range(0, len(taps))])
 
-def FillUpBottleVersionTwo(water_bottles, taps):
-    taps = [0] * taps
-    water_bottles = [bottle / 100 for bottle in water_bottles]
-    for bottle in water_bottles:
-        taps[taps.index(min(taps))] += bottle
-    return max(taps)
+        
 
 if __name__ == "__main__":
     for data in testing_data:
         print(FillUpBottle(data[0], data[1]))
-        print(FillUpBottleVersionTwo(data[0], data[1]))
