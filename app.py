@@ -54,10 +54,16 @@ Step two:
 Adding in data validation, we want to return an error if the data is invalid and explain why.
 """
 def ValidateData(input_data):
+    if len(input_data) == 1:
+        if isinstance(input_data[0], list):
+            raise Exception("Please enter how many taps are being used at the festival")
+        raise Exception("Please enter the amount of water bottles needed to be filled")
     try:
         FillUpBottleVersionTwo(input_data[0], input_data[1])
+    except IndexError:
+        print("Error: Missing either ")
     except Exception as e:
-        print(e)
+        print(e.__class__.__name__)
     
 
 
