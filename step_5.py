@@ -79,7 +79,32 @@ testing_bottle_data = [
 ]
 
 secondary_bottle_data = [
-    100, 700, 400, 600
+    100, 300, 400, 600
+]
+
+very_big_bottle_data = [
+    500000, 50000, 50000, 5000, 5000, 5000, 5000, 5000, 5000, 5000, 500000, 5000000
+]
+
+five_bottle_data = [
+    100, 100, 100, 500, 1000
+]
+
+fibonacci_bottle_data = [100, 200]
+
+for i in range(1, 10):
+    fibonacci_bottle_data.append((fibonacci_bottle_data[i-1] + fibonacci_bottle_data[i]))
+
+final_massive_bottle = [
+    200, 200, 200, 200, 200, 100, 50, 20000
+]
+
+first_tap_reach_largest_bottle_data = [
+    100, 200, 200, 100, 200, 200, 100, 200, 300, 100000, 200, 300, 100, 100, 100, 100, 100
+]
+
+small_amount_data = [
+    100, 100, 200, 300, 400, 500
 ]
 
 
@@ -91,12 +116,29 @@ def DifferentTapSpeedFillUp(water_bottles, taps):
     return max(time_at_taps)
 
 if __name__ == "__main__":
+    """
     slowest_time = 0
-    for i in range(0, 1000):
+    times = []
+    for i in range(1, 100):
         faster_tap = 100 + (int(i) * 10)
-        current_time = DifferentTapSpeedFillUp(secondary_bottle_data, [100, faster_tap])
+        current_time = DifferentTapSpeedFillUp(final_massive_bottle, [100, faster_tap])
+        times.append(current_time)
         if current_time > slowest_time:
             print("New slower time")
             print([100, faster_tap])
             print(current_time)
             slowest_time = current_time
+    print(times)
+    """
+    slowest_time = 0
+    times = []
+    for i in range(1, 100):
+        faster_tap = 100 + (int(i) * 10)
+        current_time = DifferentTapSpeedFillUp(very_big_bottle_data, [faster_tap, 100])
+        times.append(current_time)
+        if current_time > slowest_time:
+            print("New slower time")
+            print([100, faster_tap])
+            print(current_time)
+            slowest_time = current_time
+    print(times)
