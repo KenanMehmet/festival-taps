@@ -25,11 +25,21 @@ def FillUpBottle(water_bottles, taps):
     To find how long to it takes to fill a water bottle we will take the bottle amount and divide it by the tap_fill_rate 
     This is because the bottles and tap rate is measured in 100ml
     """
+    free_taps = [0 for tap in range(0, taps)]
+    free_taps = [free_taps, free_taps]
     water_bottles = [x / 100 for x in water_bottles]
-    print(water_bottles)
+
     seconds = 0
     for bottle in water_bottles:
         seconds += bottle
     return seconds
 
-print(FillUpBottle(testing_data[0][0], testing_data[0][1]))
+def FindFreeTap(free_taps, bottle):
+    print(free_taps)
+    for tap in free_taps:
+        pass
+    return True
+
+
+#print(FillUpBottle(testing_data[0][0], testing_data[0][1]))
+print(FillUpBottle(testing_data[0][0], 2))
