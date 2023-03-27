@@ -1,5 +1,6 @@
 from test_data import testing_data
 
+
 """
 Received email on Monday 27th 2:15PM
 Started at 14:45PM
@@ -25,20 +26,38 @@ def FillUpBottle(water_bottles, taps):
     To find how long to it takes to fill a water bottle we will take the bottle amount and divide it by the tap_fill_rate 
     This is because the bottles and tap rate is measured in 100ml
     """
-    free_taps = [0 for tap in range(0, taps)]
-    free_taps = [free_taps, free_taps]
+    taps = [0 for tap in range(0, taps)]
+    occupied_taps = taps.copy()
     water_bottles = [x / 100 for x in water_bottles]
 
-    seconds = 0
+    #seconds = 0
+    print("starting")
     for bottle in water_bottles:
-        seconds += bottle
+        print(occupied_taps)
+        for i in range(0, len(occupied_taps)):
+            print(occupied_taps.index(i))
+            if occupied_taps[i] == 0:
+                print(occupied_taps[i])
+                occupied_taps[i] += bottle
+                break
+            if 0 not in occupied_taps:
+                print(0 not in occupied_taps)
+                PassTime(taps)
+        print(taps, occupied_taps)
+    seconds = sum(taps)
     return seconds
 
-def FindFreeTap(free_taps, bottle):
-    print(free_taps)
-    for tap in free_taps:
-        pass
-    return True
+def PassTime(taps, occupied_taps):
+    print(taps, occupied_taps)
+    minimum_time = occupied_taps.min()
+    print(minimum_time)
+    for tap in taps:
+        tap += minimum_time[1]
+        occupied_taps -= minimum_time
+    print(taps)
+    print(occupied_taps)
+        
+
 
 
 #print(FillUpBottle(testing_data[0][0], testing_data[0][1]))
