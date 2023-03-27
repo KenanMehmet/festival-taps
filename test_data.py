@@ -53,7 +53,7 @@ testing_error_data = [
         100
     ],
     [
-        [100],
+        100,
         1
     ],
     [
@@ -84,7 +84,7 @@ testing_error_data = [
     ],
 ]
 
-differet_flow_rates_testing_data = [
+different_flow_rates_testing_data = [
     [
         [
             400, 750, 1000
@@ -127,4 +127,51 @@ differet_flow_rates_testing_data = [
         ], 
         [350, 950, 1000, 200, 50, 25, 400, 800, 600, 750, 100, 10]
     ]
+]
+
+different_flow_rates_testing_error_data = [
+    [
+        [],
+        1
+    ],
+    [
+        [100],
+        ["1a"]
+    ],
+    [
+        [100]
+    ],
+    [
+        100
+    ],
+    [
+        [100],
+        1
+    ],
+    [
+        ["abc"],
+        1
+    ],
+    [
+        [100],
+        "a"
+    ],
+    [
+        [100, 200, "a"],
+        3
+    ],
+    [
+        {
+            "bottles": 1
+        },
+        [100],
+    ],
+    [
+        [100],
+        1.5
+    ],
+    [
+        [100],
+        "1"
+    ],
 ]

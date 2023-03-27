@@ -1,4 +1,7 @@
-from test_data import testing_data, testing_error_data, differet_flow_rates_testing_data
+from test_data import (
+    testing_data, testing_error_data, 
+    different_flow_rates_testing_data, different_flow_rates_testing_error_data
+)
 
 """
 Received email on Monday 27th 2:15PM
@@ -66,29 +69,35 @@ Class Objects
 def ValidateData(input_data):
     error = ""
     if len(input_data) == 2:
-        if len(input_data[0]) > 0:
-            bottles = input_data[0]
-            taps = input_data[1]
-            try:
-                return(FillUpBottleVersionTwo(bottles, int(taps)))
-            except TypeError:
-                if any(str(bottle) == bottle for bottle in bottles):
-                    error +=("Type Error: You have entered a string for a water bottle\n")
-                if not isinstance(bottles, list):
-                    error +=("Type Error: Please enter a list for the water bottles to be filled up\n")
-            except ValueError:
-                if taps == str(taps):
-                    error +=("Value Error: A string was entered for the amount of taps\n")
+        if isinstance(input_data[0], list):
+            if len(input_data[0]) > 0:
+                bottles = input_data[0]
+                taps = input_data[1]
+                try:
+                    return(FillUpBottleVersionTwo(bottles, int(taps)))
+                except TypeError:
+                    if any(str(bottle) == bottle for bottle in bottles):
+                        error +="Type Error: You have entered a string for a water bottle\n"
+                    if not isinstance(bottles, list):
+                        error +="Type Error: Please enter a list for the water bottles to be filled up\n"
+                except ValueError:
+                    if taps == str(taps):
+                        error +="Value Error: A string was entered for the amount of taps\n"
+            else:
+                error +="Input Error: You have entered an empty list for the water bottles needed to be filled up\n"
         else:
-            error +=("Error: You have entered an empty list for the water bottles needed to be filled up\n")
+            if type(input_data[0]) != list:
+                error += "Input Error: The water bottles input is not in a list format\n"
+            if type(input_data) != int:
+                error += "Input Error: The taps input is not an integer\n"
     else:
         if len(input_data) > 2:
-            error +=("Error: You have inputed too many positional variables\n")
+            error +="Error: You have inputed too many variables, this function takes a list variable, and an integer.\n"
         if isinstance(input_data[0], list):
-            error +=("Error: Please enter how many taps are being used at the festival\n")
+            error +="Error: Please enter how many taps are being used at the festival\n"
         else:
             error +=("Error: Please enter the water bottles needed to be filled\n")
-    error += "Please try again"
+    error += "Please try again\n"
     return error
     
 """
@@ -97,8 +106,8 @@ Time to walk to tap:
 
 We will now no longer assume that the tap once its free will be instantly used by another person.
 We will now assume that it will take an extra fixed amount of time for each person to walk from the queue to the tap,
-For this version we will assume that it will take an extra 3 seconds to walk to the tap, and that the inital people will 
-enter from the queue adding on that extra 3 seconds
+For this version we will assume that it will take an extra 3 seconds to walk to the tap, we have the first person for each tap
+start with this extra 3 seconds as well.
 """
 
 def WalkToTap(water_bottles, taps):
@@ -130,29 +139,75 @@ def DifferentTapSpeedFillUp(water_bottles, taps):
         time_at_taps[free_tap] += ((bottle / taps[free_tap]) + 3)
     return max(time_at_taps)
 
+"""
+I will also update the ValidateData function to include this new change to the taps.
+"""
+
+def ValidateFlowRateData(input_data):
+    error = ""
+    if len(input_data) == 2:
+        if isinstance(input_data[0], list) and isinstance(input_data[1], list):
+            if len(input_data[0]) > 0 and len(input_data[1]) > 0:
+                bottles = input_data[0]
+                taps = input_data[1]
+                try:
+                    return(FillUpBottleVersionTwo(bottles, int(taps)))
+                except TypeError:
+                    if any(str(bottle) == bottle for bottle in bottles):
+                        error +=("Type Error: One of the waterbottles in your list is a string and not an integer\n")
+                    if not isinstance(bottles, list):
+                        error +=("Type Error: Please enter a list for the water bottles to be filled up\n")
+                    if not isinstance(taps, list):
+                        error +=("Type Error: Please enter a list for the water bottles to be filled up\n")
+                    if any(str(tap) == tap for tap in taps):
+                        error +=("Type Error: One of the taps flow rate in your list is a string and not an integer\n")
+                except ValueError:
+                    if taps == str(taps):
+                        error +=("Value Error: A string was entered for the amount of taps\n")
+            else:
+                if len(input_data[0]) == 0:
+                    error +=("Error: You have entered an empty list for the water bottles needed to be filled up\n")
+                if len(input_data[1]) == 0:
+                    error +=("Error: You have entered an empty list for the tap flow rate needed to be filled up\n")
+        else:
+            if type(input_data[0]) != list:
+                error += "Input Error: The water bottles input is not in a list format\n"
+            if type(input_data[1]) != list:
+                error += "Input Error: The taps input is not in a list format\n"
+    else:
+        if len(input_data) > 2:
+            error +=("Error: You have inputed an extra field to consider, this function takes two seperate lists\n")
+        else:
+            error +=("Error: Please enter the flow rate of the taps at the festival.\n")
+    error += "Please try again\n"
+    return error
+
+
 if __name__ == "__main__":
 
     """
     Here will the data from step 1 will be ran
-    for data in testing_data:
-        #print(FillUpBottle(data[0], data[1]))
-        print(FillUpBottleVersionTwo(data[0], data[1]))
     """
+    for data in testing_data:
+        print(FillUpBottleVersionTwo(data[0], data[1]))
 
     """
     Here we will run the testing data
     """
-    #for data in testing_error_data:
-    #    print(ValidateData(data))
+    for data in testing_error_data:
+        print(ValidateData(data))
 
     """
     Here we will be running the function where we check the extra time it takes to walk to the tap
+    """
     for data in testing_data:
         print(WalkToTap(data[0], data[1]))
-    """
 
     """
     Here we will run the function for different tap speeds
     """
-    for data in differet_flow_rates_testing_data:
+    for data in different_flow_rates_testing_data:
         print(DifferentTapSpeedFillUp(data[0], data[1]))
+
+    for data in different_flow_rates_testing_error_data:
+        print(ValidateFlowRateData(data))
