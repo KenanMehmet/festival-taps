@@ -121,8 +121,6 @@ will hold the speed of each tap in ml
 I will experiement with different ways of modeling this data:
 
 1) Model the tap array the same as before but instead use the taps positional variable to calculate time
-
-2) Create a new array that will hold the time spent at the tap and the flow rate of the tap
 """
 
 def DifferentTapSpeedFillUp(water_bottles, taps):
@@ -132,6 +130,19 @@ def DifferentTapSpeedFillUp(water_bottles, taps):
         time_at_taps[free_tap] += ((bottle / taps[free_tap]) + 3)
         print(time_at_taps)
     return max(time_at_taps)
+
+
+"""
+Step 5
+Faster Taps Slower time:
+
+Now that I have created the above function, I will now run tests to see that if it is possible, that if I were to increase the flow rate of one tap, if it will take longer to to fill up all water bottles.
+
+For this I will use the following test data but only change the tap speed
+
+Bottles: [ 400, 750, 1000, 300, 750, 2000 ] 
+Taps: 2 taps that will both initally run at 200 speed.
+"""
 
 if __name__ == "__main__":
 
