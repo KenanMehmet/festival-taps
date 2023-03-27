@@ -1,6 +1,5 @@
 from test_data import testing_data
 
-
 """
 Received email on Monday 27th 2:15PM
 Started at 14:45PM
@@ -26,24 +25,19 @@ def FillUpBottle(water_bottles, taps):
     To find how long to it takes to fill a water bottle we will take the bottle amount and divide it by the tap_fill_rate 
     This is because the bottles and tap rate is measured in 100ml
     """
-    taps = [0] * taps
-    occupied_taps = taps.copy()
-    water_bottles = [x / 100 for x in water_bottles]
+    taps = [0] * taps # create an array of each ta, this record seconds being used by each tap
+    occupied_taps = taps.copy() # copy the above array, this will be used to count how many seconds each tap will be used for.
+    water_bottles = [bottle / 100 for bottle in water_bottles] #find how many seconds each bottle will take to fill
     for bottle in water_bottles:
         if 0 not in occupied_taps:
-            print(taps, occupied_taps)
-            minimum_time = min(occupied_taps)
-            for j in range(0, len(taps)):
-                taps[j] += minimum_time
-                occupied_taps[j] -= minimum_time
-                print(taps, occupied_taps)
-        occupied_taps[occupied_taps.index(0)] += bottle
-    #taps = [taps[i] + occupied_taps[i] for i in range(0, len(taps))]
+            minimum_time = min(occupied_taps) # Save minimum time here 
+            taps = list(map(lambda num: num + minimum_time, taps)) #Run a function over each tap, this function adds the minimum time to each entry
+            occupied_taps = list(map(lambda num: num - minimum_time, occupied_taps)) #Same as the above but we reduce the time.
+        occupied_taps[occupied_taps.index(0)] += bottle #Find an unoccupied tap and add how long it will take to fill up that bottle to 
     return max([taps[i] + occupied_taps[i] for i in range(0, len(taps))])
 
         
 
-
-
-#print(FillUpBottle(testing_data[0][0], testing_data[0][1]))
-print(FillUpBottle(testing_data[0][0], 2))
+if __name__ == "__main__":
+    print(FillUpBottle(testing_data[0][0], testing_data[0][1]))
+    print(FillUpBottle(testing_data[0][0], 2))
