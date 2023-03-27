@@ -52,18 +52,44 @@ def FillUpBottleVersionTwo(water_bottles, taps):
 """
 Step two:
 Adding in data validation, we want to return an error if the data is invalid and explain why.
+
+Types of incorrect data.
+
+Float decimals
+Empty lists
+Strings in the list of water bottles
+String for the tap
+Lists for taps
+Dictionaries
+Class Objects
 """
 def ValidateData(input_data):
-    if len(input_data) == 1:
+    error = ""
+    if len(input_data) == 2:
+        if len(input_data[0]) > 0:
+            bottles = input_data[0]
+            taps = input_data[1]
+            try:
+                return(FillUpBottleVersionTwo(bottles, int(taps)))
+            except TypeError:
+                if any(str(bottle) == bottle for bottle in bottles):
+                    error +=("Type Error: You have entered a string for a water bottle\n")
+                if not isinstance(bottles, list):
+                    error +=("Type Error: Please enter a list for the water bottles to be filled up\n")
+            except ValueError:
+                if taps == str(taps):
+                    error +=("Value Error: A string was entered for the amount of taps\n")
+        else:
+            error +=("Error: You have entered an empty list for the water bottles needed to be filled up\n")
+    else:
+        if len(input_data) > 2:
+            error +=("Error: You have inputed too many positional variables\n")
         if isinstance(input_data[0], list):
-            raise Exception("Please enter how many taps are being used at the festival")
-        raise Exception("Please enter the amount of water bottles needed to be filled")
-    try:
-        FillUpBottleVersionTwo(input_data[0], input_data[1])
-    except IndexError:
-        print("Error: Missing either ")
-    except Exception as e:
-        print(e.__class__.__name__)
+            error +=("Error: Please enter how many taps are being used at the festival\n")
+        else:
+            error +=("Error: Please enter the water bottles needed to be filled\n")
+    error += "Please try again"
+    return error
     
 
 
