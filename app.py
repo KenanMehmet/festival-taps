@@ -91,13 +91,40 @@ def ValidateData(input_data):
     error += "Please try again"
     return error
     
+"""
+Step 3
+Time to walk to tap:
 
+We will now no longer assume that the tap once its free will be instantly used by another person.
+We will now assume that it will take an extra fixed amount of time for each person to walk from the queue to the tap,
+For this version we will assume that it will take an extra 3 seconds to walk to the tap, and that the inital people will 
+enter from the queue adding on that extra 3 seconds
+"""
+
+def WalkToTap(water_bottles, taps):
+    taps = [0] * taps
+    water_bottles = [bottle / 100 for bottle in water_bottles]
+    for bottle in water_bottles:
+        taps[taps.index(min(taps))] += (bottle + 3)
+    return max(taps)
 
 if __name__ == "__main__":
+
+    """
+    Here will the data from step 1 will be ran
     """
     for data in testing_data:
-        print(FillUpBottle(data[0], data[1]))
+        #print(FillUpBottle(data[0], data[1]))
         print(FillUpBottleVersionTwo(data[0], data[1]))
+
     """
-    for data in testing_error_data:
-        print(ValidateData(data))
+    Here we will run the testing data
+    """
+    #for data in testing_error_data:
+    #    print(ValidateData(data))
+
+    """
+    Here we will be running the function where we check the extra time it takes to walk to the tap
+    """
+    for data in testing_data:
+        print(WalkToTap(data[0], data[1]))
