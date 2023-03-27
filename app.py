@@ -23,7 +23,7 @@ def FillUpBottle(water_bottles, taps):
     """
     taps = [0] * taps # create an array of each ta, this record seconds being used by each tap
     occupied_taps = taps.copy() # copy the above array, this will be used to count how many seconds each tap will be used for.
-    water_bottles = [bottle / 100 for bottle in water_bottles] #find how many seconds each bottle will take to fill
+    water_bottles = [bottle / tap_fill_rate for bottle in water_bottles] #find how many seconds each bottle will take to fill
     for bottle in water_bottles:
         if 0 not in occupied_taps:
             minimum_time = min(occupied_taps) # Save minimum time here 
@@ -117,23 +117,30 @@ tap will have a different ml per second, e.g tap 1 will be at 100ml per second a
 
 Changes that we will be making to our test data is converting the integer to representing taps into a list which 
 will hold the speed of each tap in ml
+
+I will experiement with different ways of modeling this data:
+
+1) Model the tap array the same as before but instead use the taps positional variable to calculate time
+
+2) Create a new array that will hold the time spent at the tap and the flow rate of the tap
 """
 
 def DifferentTapSpeedFillUp(water_bottles, taps):
-    taps = [0] * taps
-    water_bottles = [bottle / 100 for bottle in water_bottles]
+    time_at_taps = [0] * len(taps)
     for bottle in water_bottles:
-        taps[taps.index(min(taps))] += (bottle + 3)
-    return max(taps)
+        free_tap = time_at_taps.index(min(time_at_taps))
+        time_at_taps[free_tap] += ((bottle / taps[free_tap]) + 3)
+        print(time_at_taps)
+    return max(time_at_taps)
 
 if __name__ == "__main__":
 
     """
     Here will the data from step 1 will be ran
-    """
     for data in testing_data:
         #print(FillUpBottle(data[0], data[1]))
         print(FillUpBottleVersionTwo(data[0], data[1]))
+    """
 
     """
     Here we will run the testing data
@@ -143,9 +150,12 @@ if __name__ == "__main__":
 
     """
     Here we will be running the function where we check the extra time it takes to walk to the tap
-    """
     for data in testing_data:
         print(WalkToTap(data[0], data[1]))
+    """
 
+    """
+    Here we will run the function for different tap speeds
+    """
     for data in differet_flow_rates_testing_data:
         print(DifferentTapSpeedFillUp(data[0], data[1]))
