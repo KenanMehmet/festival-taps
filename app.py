@@ -53,9 +53,9 @@ def FillUpBottleVersionTwo(water_bottles, taps):
 Step two:
 Adding in data validation, we want to return an error if the data is invalid and explain why.
 """
-def ValidateData(water_bottles, taps):
+def ValidateData(input_data):
     try:
-        FillUpBottleVersionTwo(water_bottles, taps)
+        FillUpBottleVersionTwo(input_data[0], input_data[1])
     except Exception as e:
         print(e)
     
@@ -68,4 +68,4 @@ if __name__ == "__main__":
         print(FillUpBottleVersionTwo(data[0], data[1]))
     """
     for data in testing_error_data:
-        print(ValidateData(data[0], data[1]))
+        print(ValidateData(data))
