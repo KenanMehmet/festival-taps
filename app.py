@@ -128,7 +128,6 @@ def DifferentTapSpeedFillUp(water_bottles, taps):
     for bottle in water_bottles:
         free_tap = time_at_taps.index(min(time_at_taps))
         time_at_taps[free_tap] += ((bottle / taps[free_tap]) + 3)
-        print(time_at_taps)
     return max(time_at_taps)
 
 
@@ -138,10 +137,7 @@ Faster Taps Slower time:
 
 Now that I have created the above function, I will now run tests to see that if it is possible, that if I were to increase the flow rate of one tap, if it will take longer to to fill up all water bottles.
 
-For this I will use the following test data but only change the tap speed
-
-Bottles: [ 400, 750, 1000, 300, 750, 2000 ] 
-Taps: 2 taps that will both initally run at 200 speed.
+For this I will use different types of bottle data but only change the tap speed.
 """
 
 if __name__ == "__main__":
