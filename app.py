@@ -30,10 +30,6 @@ def FillUpBottle(water_bottles, taps):
     occupied_taps = taps.copy()
     water_bottles = [x / 100 for x in water_bottles]
     for bottle in water_bottles:
-        for i in range(0, len(occupied_taps)):
-            if occupied_taps[i] == 0:
-                occupied_taps[i] += bottle
-                break
         if 0 not in occupied_taps:
             print(taps, occupied_taps)
             minimum_time = min(occupied_taps)
@@ -41,8 +37,9 @@ def FillUpBottle(water_bottles, taps):
                 taps[j] += minimum_time
                 occupied_taps[j] -= minimum_time
                 print(taps, occupied_taps)
-    taps = [taps[i] + occupied_taps[i] for i in range(0, len(taps))]
-    return sum(taps)
+        occupied_taps[occupied_taps.index(0)] += bottle
+    #taps = [taps[i] + occupied_taps[i] for i in range(0, len(taps))]
+    return max([taps[i] + occupied_taps[i] for i in range(0, len(taps))])
 
         
 
