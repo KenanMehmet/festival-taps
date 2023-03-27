@@ -35,24 +35,19 @@ def FillUpBottle(water_bottles, taps):
     for bottle in water_bottles:
         print(occupied_taps)
         for i in range(0, len(occupied_taps)):
-            print(occupied_taps[i])
             if occupied_taps[i] == 0:
-                print(occupied_taps[i])
                 occupied_taps[i] += bottle
                 break
             if 0 not in occupied_taps:
-                print(0 not in occupied_taps)
-                PassTime(taps, occupied_taps)
-        print(taps, occupied_taps)
+                minimum_time = min(occupied_taps)
+                print(minimum_time)
+                for j in range(0, len(taps)):
+                    taps[j] += minimum_time
+                    occupied_taps[j] -= minimum_time
+                    print(taps, occupied_taps)
     seconds = sum(taps)
     return seconds
 
-def PassTime(taps, occupied_taps):
-    minimum_time = min(occupied_taps)
-    for tap in taps:
-        tap += minimum_time[1]
-        occupied_taps -= minimum_time
-    return taps, occupied_taps
         
 
 
