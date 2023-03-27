@@ -28,23 +28,12 @@ def FillUpBottle(water_bottles, taps):
     taps = [0] * taps # create an array of each ta, this record seconds being used by each tap
     occupied_taps = taps.copy() # copy the above array, this will be used to count how many seconds each tap will be used for.
     water_bottles = [bottle / 100 for bottle in water_bottles] #find how many seconds each bottle will take to fill
-    print("Starting")
     for bottle in water_bottles:
         if 0 not in occupied_taps:
-            print(taps)
-            print(occupied_taps)
             minimum_time = min(occupied_taps) # Save minimum time here 
             taps = list(map(lambda num: num + minimum_time, taps)) #Run a function over each tap, this function adds the minimum time to each entry
             occupied_taps = list(map(lambda num: num - minimum_time, occupied_taps)) #Same as the above but we reduce the time.
-            print(taps)
-            print(occupied_taps)
         occupied_taps[occupied_taps.index(0)] += bottle #Find an unoccupied tap and add how long it will take to fill up that bottle to 
-    print("Finishing")
-    print(taps)
-    print(occupied_taps)
-    taps = [taps[i] + occupied_taps[i] for i in range(0, len(taps))]
-    print(taps)
-    print(occupied_taps)
     return max([taps[i] + occupied_taps[i] for i in range(0, len(taps))])
 
 def FillUpBottleVersionTwo(water_bottles, taps):
