@@ -4,7 +4,7 @@ from test_data import testing_data, testing_error_data, differet_flow_rates_test
 Received email on Monday 27th 2:15PM
 Started at 14:45PM
 
-Step 1: Create a function that takes two inputs: 
+Initial Problem: Create a function that takes two inputs: 
     Array of integers
     Integer to represent taps
 Function should return the total number of seconds that it takes for all people to have filled their water bottles.
@@ -50,7 +50,7 @@ def FillUpBottleVersionTwo(water_bottles, taps):
 
 
 """
-Step two:
+Bonus Step One:
 Adding in data validation, we want to return an error if the data is invalid and explain why.
 
 Types of incorrect data.
@@ -92,7 +92,7 @@ def ValidateData(input_data):
     return error
     
 """
-Step 3
+Bonus Step Two:
 Time to walk to tap:
 
 We will now no longer assume that the tap once its free will be instantly used by another person.
@@ -109,7 +109,7 @@ def WalkToTap(water_bottles, taps):
     return max(taps)
 
 """
-Step 4
+Bonus Step Three
 Different Flow of taps:
 
 We have initally assumed that the taps will all be running at the same speed, now we will assume that each
@@ -129,16 +129,6 @@ def DifferentTapSpeedFillUp(water_bottles, taps):
         free_tap = time_at_taps.index(min(time_at_taps))
         time_at_taps[free_tap] += ((bottle / taps[free_tap]) + 3)
     return max(time_at_taps)
-
-
-"""
-Step 5
-Faster Taps Slower time:
-
-Now that I have created the above function, I will now run tests to see that if it is possible, that if I were to increase the flow rate of one tap, if it will take longer to to fill up all water bottles.
-
-For this I will use different types of bottle data but only change the tap speed.
-"""
 
 if __name__ == "__main__":
 
