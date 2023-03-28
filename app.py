@@ -4,8 +4,8 @@ from test_data import (
 )
 
 """
-Received email on Monday 27th 2:15PM
-Started at 14:45PM
+Received email on Monday 27th 14:15
+Started at 14:45
 
 Initial Problem: Create a function that takes two inputs: 
     Array of integers
@@ -14,21 +14,21 @@ Function should return the total number of seconds that it takes for all people 
 Assume that once a tap is free it next peson uses that tapp immiedetly and cannot move to a different tap once they started filling
 Each tap flows at a rate of 100ml per second (e.g 1 litre bottle takes 10 seconds)
 
-Finished inital function 16:36PM
+Finished inital function 16:36
 """
-
-tap_fill_rate = 100
 
 def FillUpBottle(water_bottles, taps):
     """
     To find how long to it takes to fill a water bottle we will take the bottle amount and divide it by the tap_fill_rate 
     This is because the bottles and tap rate is measured in 100ml
+
+    Initally had tap_fill_rate as a variable but taken away as it was only used in one area
     """
-    taps = [0] * taps # create an array of each ta, this record seconds being used by each tap
+    taps = [0] * taps # create an array of each tap, this record seconds being used by each tap
     occupied_taps = taps.copy() # copy the above array, this will be used to count how many seconds each tap will be used for.
-    water_bottles = [bottle / tap_fill_rate for bottle in water_bottles] #find how many seconds each bottle will take to fill
+    water_bottles = [bottle / 100 for bottle in water_bottles] #find how many seconds each bottle will take to fill
     for bottle in water_bottles:
-        if 0 not in occupied_taps:
+        if 0 not in occupied_taps: # if there any free taps
             minimum_time = min(occupied_taps) # Save minimum time here 
             taps = list(map(lambda num: num + minimum_time, taps)) #Run a function over each tap, this function adds the minimum time to each entry
             occupied_taps = list(map(lambda num: num - minimum_time, occupied_taps)) #Same as the above but we reduce the time.
@@ -39,16 +39,17 @@ def FillUpBottle(water_bottles, taps):
 """
 Conceived a more efficent way of coming up with the correct answer based on looking at the test data
 
-Instead of creating two arrays that would add to each other, one array is only needed and we just need to count how much time each array was being used for.
-Then we find the max and that is how long it takes for each bottle to be filled
+Instead of creating two arrays that would add to each other, one array is only needed and we just need to count how much time each tap was being used for.
+Then we find the max time a tap was used for, this represents how long it takes for all bottles to be filled, as the max time will be the last bottle
+being filled up.
 
-Finished inital function 17:07pm
+Finished inital function 17:07
 """
 def FillUpBottleVersionTwo(water_bottles, taps):
     taps = [0] * taps
     water_bottles = [bottle / 100 for bottle in water_bottles]
     for bottle in water_bottles:
-        taps[taps.index(min(taps))] += bottle
+        taps[taps.index(min(taps))] += bottle # Find the current lowest value tap, and add the time it takes to fill up the bottle to the tap
     return max(taps)
 
 
@@ -114,7 +115,7 @@ def WalkToTap(water_bottles, taps):
     taps = [0] * taps
     water_bottles = [bottle / 100 for bottle in water_bottles]
     for bottle in water_bottles:
-        taps[taps.index(min(taps))] += (bottle + 3)
+        taps[taps.index(min(taps))] += (bottle + 3) # we will add on an extra 3 seconds to represent someone walking to the tap.
     return max(taps)
 
 """
@@ -130,6 +131,12 @@ will hold the speed of each tap in ml
 I will experiement with different ways of modeling this data:
 
 1) Model the tap array the same as before but instead use the taps positional variable to calculate time
+
+2) The tap array will now hold arrays which include time at tap and the tap flow speed
+
+3) Two different arrays, one to hold the time spent at the taps, another being the flow rate
+
+Went with the first model as it was the most efficient way of modeling that data
 """
 
 def DifferentTapSpeedFillUp(water_bottles, taps):
@@ -186,9 +193,11 @@ def ValidateFlowRateData(input_data):
 if __name__ == "__main__":
 
     """
-    Here will the data from step 1 will be ran
+    Here will the data from the inital function will be ran,
+    I have included both the original function and my updated function to show that they reach the same result.
     """
     for data in testing_data:
+        print(FillUpBottle(data[0], data[1]))
         print(FillUpBottleVersionTwo(data[0], data[1]))
 
     """

@@ -89,5 +89,5 @@ data set final_massive_bottle and alternating_bottles_with_a_large_bottle. From 
 faster tap rate to have a longer time needed for filling all bottles, if the staps are not equal to start with and for the slower tap to get the largest bottle.
 """
 if __name__ == "__main__":
-    CreateFile('same_tap_speed_start_result', 0)
-    CreateFile('different_tap_speed_start_result', 1)
+    CreateFile('same_tap_speed_start_result.txt', 0)
+    CreateFile('different_tap_speed_start_result.txt', 1)
